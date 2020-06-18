@@ -24,15 +24,21 @@ class FleetTaxiYandexClient
 
     protected $httpOptions = [];
 
-    public function __construct()
+    public function __construct($config = null)
     {
         $this->httpClient = new Client([
             'base_uri' => $this->baseUrl,
         ]);
         $this->config = config('fleet-taxi-yandex');
 
-        foreach ($this->config['fleet_taxi_yandex_conf'] as $name => $value) {
-            $this->$name = $value;
+        if($config){
+            foreach ($config as $name => $value) {
+                $this->$name = $value;
+            }
+        } else {
+            foreach ($this->config['fleet_taxi_yandex_conf'] as $name => $value) {
+                $this->$name = $value;
+            }
         }
 
     }
